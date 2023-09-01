@@ -18,9 +18,13 @@ import java.util.Properties;
 public class ReportController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         HttpSession session = request.getSession();
         response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
         String userID = null;
+
         if ( session.getAttribute("userID") != null) {
             userID = (String) session.getAttribute("userID");
         }
@@ -34,7 +38,7 @@ public class ReportController extends HttpServlet {
             return;
         }
 
-        request.setCharacterEncoding("UTF-8");
+
         String reportTitle = null;
         String reportContent = null;
         if (request.getParameter("reportTitle") != null) {

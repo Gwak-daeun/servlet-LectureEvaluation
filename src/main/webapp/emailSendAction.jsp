@@ -135,7 +135,7 @@
                             if (userID == null) {
                         %>
                         <li><a class="dropdown-item" href="userLogin.jsp">로그인</a></li>
-                        <li> <a class="dropdown-item" href="userJoin.jsp">회원가입</a></li>
+                        <li> <a class="dropdown-item" href="insertUser.jsp">회원가입</a></li>
                         <%
                         } else {
                         %>
