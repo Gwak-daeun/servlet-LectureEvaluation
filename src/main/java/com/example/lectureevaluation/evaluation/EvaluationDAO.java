@@ -162,4 +162,23 @@ public class EvaluationDAO {
         }
         return null; //데이터베이스 오류
     }
+
+    public int selectCount() {
+        String SQL = "select count(*) from evaluation";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DatabaseUtil.getConnection();
+            pstmt = conn.prepareStatement(SQL);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }

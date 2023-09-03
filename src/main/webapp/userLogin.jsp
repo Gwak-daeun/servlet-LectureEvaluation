@@ -31,10 +31,10 @@
     }
 %>
 
-<%@ include file="./lecutureNavigation.jsp" %>
+<%@ include file="components/lecutureNavigation.jsp" %>
 
 <section class="container mt-3" style="max-width: 560px;">
-    <form method="post" action="login">
+    <form method="post" action="login.do">
         <div class="form-group">
             <label>아이디</label>
             <input type="text" name="userID" class="form-control">

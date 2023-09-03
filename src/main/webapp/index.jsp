@@ -5,6 +5,8 @@
 <%@ page import="com.example.lectureevaluation.evaluation.EvaluationDAO" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,100 +67,81 @@
     script.close();
     return;
   }
+
 %>
 
 
-<%@ include file="./lecutureNavigation.jsp" %>
+<%@ include file="components/lecutureNavigation.jsp" %>
 
-  <section class="container">
-    <form method="get" action="./index.jsp" class="form-inline mt-3">
+<section class="container">
+    <form method="get" action="searchList.do" class="form-inline mt-3">
       <select name="lectureDivide" class="form-control mx-1 mt-2">
         <option value="전체">전체</option>
-        <option value="전공" <% if (lectureDivide.equals("전공")) out.println("selected"); %> >전공</option>
-        <option value="교양" <% if (lectureDivide.equals("교양")) out.println("selected"); %> >교양</option>
-        <option value="기타" <% if (lectureDivide.equals("기타")) out.println("selected"); %> >기타</option>
+        <option value="전공" <c:if test="${lectureDivide == '전공'}" >selected</c:if>>전공</option>
+        <option value="교양" <c:if test="${lectureDivide == '교양'}" >selected</c:if>>교양</option>
+        <option value="기타" <c:if test="${lectureDivide == '기타'}" >selected</c:if>>기타</option>
       </select>
       <select name="searchType" class="form-control mx-1 mt-2">
-        <option value="최신순" <% if (searchType.equals("최신순")) out.println("selected"); %> >최신순</option>
-        <option value="추천순" <% if (searchType.equals("추천순")) out.println("selected"); %> >추천순</option>
+        <option value="최신순" <c:if test="${searchType == '최신순'}" >selected</c:if>>최신순</option>
+        <option value="추천순"<c:if test="${searchType == '추천순'}" >selected</c:if>>추천순</option>
       </select>
       <input type="text" name="search" class="form-control mx-1 mt-2" placeholder="내용을 입력하세요.">
       <button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
       <a class="btn btn-primary mx-1 mt-2" data-bs-toggle="modal" data-bs-target="#registerModal">등록하기</a>
       <a class="btn btn-danger mx-1 mt-2" data-bs-toggle="modal" data-bs-target="#reportModal">신고</a>
     </form>
-<%
-  ArrayList<EvaluationDTO> evaluationList = new ArrayList<EvaluationDTO>();
-  evaluationList = new EvaluationDAO().getList(lectureDivide, searchType, search, pageNumber);
-  if (evaluationList != null)
-    for (int i = 0; i < evaluationList.size(); i++) {
-      if (i == 5) break;
-      EvaluationDTO evaluation = evaluationList.get(i);
 
-%>
+  <c:forEach var="evaluation" items="${evaluationList}">
     <div class="card bg-light mt-3">
       <div class="card-header bg-light">
         <div class="row">
-          <div class="col-8 text-left"><%=evaluation.getLectureName()%>&nbsp;<small><%=evaluation.getProfessorName()%></small></div>
+          <div class="col-8 text-left">${evaluation.lectureName}&nbsp;<small>${evaluation.professorName}</small></div>
           <div class="col-4 text-right">
-            종합<span style="color: red;"><%=evaluation.getTotalScore()%></span>
+            종합<span style="color: red;">${evaluation.totalScore}</span>
           </div>
         </div>
       </div>
       <div class="card-body">
         <h5 class="card-title">
-          <%=evaluation.getEvaluationTitle()%>&nbsp;<small><%=evaluation.getLectureYear()%>년 <%=evaluation.getSemesterDivide()%></small>
+            ${evaluation.evaluationTitle}&nbsp;<small>${evaluation.lectureYear}년 ${evaluation.semesterDivide}</small>
         </h5>
-        <p class="card-text"><%=evaluation.getEvaluationContent()%></p>
+        <p class="card-text">${evaluation.evaluationContent}</p>
         <div class="row">
           <div class="col-9 text-left">
-            성적<span style="color: red;"><%=evaluation.getCreditScore()%></span>
-            널널<span style="color: red;"><%=evaluation.getComfortableScore()%></span>
-            강의<span style="color: red;"><%=evaluation.getLectureScore()%></span>
-            <span style="color: green">(추천: <%=evaluation.getLikeCount()%>)</span>
+            성적<span style="color: red;">${evaluation.creditScore}</span>
+            널널<span style="color: red;">${evaluation.comfortableScore}</span>
+            강의<span style="color: red;">${evaluation.lectureScore}</span>
+            <span style="color: green">(추천: ${evaluation.likeCount})</span>
           </div>
           <div class="col-3 text-right">
-            <a onclick="return confirm('추천하시겠습니까?')" href="./likeAction.jsp?evaluationID=<%=evaluation.getEvaluationID()%>">추천</a>
-            <a onclick="return confirm('삭제하시겠습니까?')" href="./deleteAction.jsp?evaluationID=<%=evaluation.getEvaluationID()%>">삭제</a>
+            <a onclick="return confirm('추천하시겠습니까?')" href="like.do?evaluationID=${evaluation.evaluationID}">추천</a>
+            <a onclick="return confirm('삭제하시겠습니까?')" href="evaluationDelete.do?evaluationID=${evaluation.evaluationID}">삭제</a>
 
           </div>
         </div>
       </div>
     </div>
-<%
-
-  }
-%>
-  </section>
+  </c:forEach>
+</section>
 
   <ul class="pagination justify-content-center mt-3">
     <li class="page-item">
-      <%
-        if (pageNumber <= 0) {
-      %>
-      <a class="page-link disabled">이전</a>
-      <%
-        } else {
-      %>
-      <a class="page-link" href="./index.jsp?lectureDivide=<%=URLEncoder.encode(lectureDivide, "UTF-8")%>&searchType=<%=URLEncoder.encode(searchType, "UTF-8")%>&search=<%=URLEncoder.encode(search, "UTF-8")%>&pageNumber=<%=pageNumber - 1%>">이전</a>
 
-      <%
-        }
-      %>
+      <c:if test="${evaluationList.pageNumber <= 0}">
+        <a class="page-link disabled">이전</a>
+      </c:if>
+      <c:if test="${evaluationList.pageNumber > 0}">
+        <a class="page-link" href="./index.jsp?lectureDivide=<%=URLEncoder.encode(lectureDivide, "UTF-8")%>&searchType=<%=URLEncoder.encode(searchType, "UTF-8")%>&search=<%=URLEncoder.encode(search, "UTF-8")%>&pageNumber=<%=pageNumber - 1%>">이전</a>
+      </c:if>
     </li>
     <li>
-      <%
-          if (evaluationList.size() < 6) {
-      %>
+      <c:if test="${evaluationList.length < 6}">
       <a class="page-link disabled">다음</a>
-      <%
-      } else {
-      %>
+      </c:if>
+      <c:if test="${evaluationList.length >= 6}">
       <a class="page-link" href="./index.jsp?lectureDivide=<%=URLEncoder.encode(lectureDivide, "UTF-8")%>&searchType=<%=URLEncoder.encode(searchType, "UTF-8")%>&search=<%=URLEncoder.encode(search, "UTF-8")%>&pageNumber=<%=pageNumber + 1%>">다음</a>
 
-      <%
-        }
-      %>
+      </c:if>
     </li>
   </ul>
 
@@ -173,7 +156,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="./evaluationRegisterAction.jsp" method="post">
+          <form action="evaluationRegister.do" method="post">
             <div class="form-row">
               <div class="form-group col-sm-6">
                 <label>강의명</label>
@@ -291,7 +274,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="report" method="post">
+          <form action="report.do" method="post">
             <div class="form-group">
               <label>신고 제목</label>
               <input type="text" name="reportTitle" class="form-control" maxlength="30">

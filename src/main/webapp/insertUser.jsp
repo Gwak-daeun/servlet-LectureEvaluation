@@ -30,7 +30,7 @@
         return;
     }
 %>
-<%@ include file="./lecutureNavigation.jsp" %>
+<%@ include file="components/lecutureNavigation.jsp" %>
 <section class="container mt-3" style="max-width: 560px;">
     <form method="post" action="insertUser.do">
         <div class="form-group">

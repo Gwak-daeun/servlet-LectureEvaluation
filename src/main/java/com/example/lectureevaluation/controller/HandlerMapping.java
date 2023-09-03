@@ -1,20 +1,38 @@
 package com.example.lectureevaluation.controller;
 
-import com.example.lectureevaluation.controller.user.InsertUserController;
-import com.example.lectureevaluation.controller.user.InsertUserViewController;
+import com.example.lectureevaluation.controller.email.EmailCheckController;
+import com.example.lectureevaluation.controller.email.EmailSendController;
+import com.example.lectureevaluation.controller.evaluation.EvaluationDeleteController;
+import com.example.lectureevaluation.controller.evaluation.EvaluationListController;
+import com.example.lectureevaluation.controller.evaluation.EvaluationRegisterController;
+import com.example.lectureevaluation.controller.like.LikeController;
+import com.example.lectureevaluation.controller.report.ReportController;
+import com.example.lectureevaluation.controller.user.UserInsertController;
+import com.example.lectureevaluation.controller.user.UserInsertViewController;
+import com.example.lectureevaluation.controller.user.UserLoginController;
+import com.example.lectureevaluation.controller.user.UserLogoutController;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class HandlerMapping {
     //Controller를 구현한 객체들을 저장하는 Map
-    private Map<String, Controller> mappings;
+    private final Map<String, Controller> mappings;
 
     public HandlerMapping() {
     //Key-value형태로 수많은 Controller를 등록한다.
         mappings = new HashMap<String, Controller>();
-        mappings.put("/insertUserView.do", new InsertUserViewController());
-        mappings.put("/insertUser.do", new InsertUserController());
+        mappings.put("/insertUserView.do", new UserInsertViewController());
+        mappings.put("/insertUser.do", new UserInsertController());
+        mappings.put("/evaluationRegister.do", new EvaluationRegisterController());
+        mappings.put("/evaluationDelete.do", new EvaluationDeleteController());
+        mappings.put("/report.do", new ReportController());
+        mappings.put("/like.do", new LikeController());
+        mappings.put("/login.do", new UserLoginController());
+        mappings.put("/logout.do", new UserLogoutController());
+        mappings.put("/emailSend.do", new EmailSendController());
+        mappings.put("/emailCheck.do", new EmailCheckController());
+        mappings.put("/searchList.do", new EvaluationListController());
     }
 
     public Controller getController(String path) {
