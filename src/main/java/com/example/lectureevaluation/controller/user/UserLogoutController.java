@@ -16,12 +16,7 @@ public class UserLogoutController implements Controller {
 
         session.invalidate();
 
-        PrintWriter script = response.getWriter();
-        script.println("<script>");
-        script.println("location.href = 'index.jsp'");
-        script.println("</script>");
-        script.close();
 
-        return null;
+        return "index";
     }
 }

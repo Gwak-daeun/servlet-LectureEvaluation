@@ -13,23 +13,23 @@
 
 </head>
 <body>
-<%
-  String userID = null;
-  if (session.getAttribute("userID") != null) {
-    userID = (String) session.getAttribute("userID");
-  }
-  if (userID == null) {
-    session.setAttribute("userID", userID);
-    PrintWriter script = response.getWriter();
-    script.println("<script>");
-    script.println("alert('로그인을 해주세요.');");
-    script.println("location.href = 'userLogin.jsp';");
-    script.println("</script>");
-    script.close();
-    return;
-  }
-%>
-<%@ include file="components/lecutureNavigation.jsp" %>
+<%--<%--%>
+<%--  String userID = null;--%>
+<%--  if (session.getAttribute("userID") != null) {--%>
+<%--    userID = (String) session.getAttribute("userID");--%>
+<%--  }--%>
+<%--  if (userID == null) {--%>
+<%--    session.setAttribute("userID", userID);--%>
+<%--    PrintWriter script = response.getWriter();--%>
+<%--    script.println("<script>");--%>
+<%--    script.println("alert('로그인을 해주세요.');");--%>
+<%--    script.println("location.href = 'userLogin.jsp';");--%>
+<%--    script.println("</script>");--%>
+<%--    script.close();--%>
+<%--    return;--%>
+<%--  }--%>
+<%--%>--%>
+<%@ include file="./components/lecutureNavigation.jsp" %>
 
 <section class="container mt-3" style="max-width: 560px;">
   <div class="alert alert-warning mt-4" role="alert">

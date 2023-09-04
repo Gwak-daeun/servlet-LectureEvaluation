@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 public class UserInsertViewController implements Controller {
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("회원가입 화면으로 이동");
+        System.out.println("move to Join View");
         return "insertUser";
     }
 }

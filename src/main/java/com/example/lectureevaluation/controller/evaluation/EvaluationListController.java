@@ -20,6 +20,10 @@ public class EvaluationListController implements Controller {
         String lectureDivide = request.getParameter("lectureDivide");
         String searchType = request.getParameter("searchType");
         int pageNumber = 0;
+        if (request.getParameter("pageNumber") != null) {
+            pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+        }
+        System.out.println("pageNumber" + pageNumber);
         String search = request.getParameter("search");
         if (search == null) {
             search = "";
@@ -29,7 +33,10 @@ public class EvaluationListController implements Controller {
         evaluationList = new EvaluationDAO().getList(lectureDivide, searchType, search, pageNumber);
 
         HttpSession session = request.getSession();
-        request.setAttribute("evaluationList", evaluationList);
-        return "index";
+        session.setAttribute("evaluationList", evaluationList);
+        session.setAttribute("pageNumber", pageNumber);
+        System.out.println("evaluationList : " + evaluationList.size());
+        return "main";
     }
+
 }

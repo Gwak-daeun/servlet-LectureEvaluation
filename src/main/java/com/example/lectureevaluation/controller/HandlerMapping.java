@@ -5,12 +5,10 @@ import com.example.lectureevaluation.controller.email.EmailSendController;
 import com.example.lectureevaluation.controller.evaluation.EvaluationDeleteController;
 import com.example.lectureevaluation.controller.evaluation.EvaluationListController;
 import com.example.lectureevaluation.controller.evaluation.EvaluationRegisterController;
+import com.example.lectureevaluation.controller.evaluation.MainViewController;
 import com.example.lectureevaluation.controller.like.LikeController;
 import com.example.lectureevaluation.controller.report.ReportController;
-import com.example.lectureevaluation.controller.user.UserInsertController;
-import com.example.lectureevaluation.controller.user.UserInsertViewController;
-import com.example.lectureevaluation.controller.user.UserLoginController;
-import com.example.lectureevaluation.controller.user.UserLogoutController;
+import com.example.lectureevaluation.controller.user.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,10 +27,13 @@ public class HandlerMapping {
         mappings.put("/report.do", new ReportController());
         mappings.put("/like.do", new LikeController());
         mappings.put("/login.do", new UserLoginController());
+        mappings.put("/loginView.do", new UserLoginViewController());
         mappings.put("/logout.do", new UserLogoutController());
         mappings.put("/emailSend.do", new EmailSendController());
         mappings.put("/emailCheck.do", new EmailCheckController());
         mappings.put("/searchList.do", new EvaluationListController());
+        mappings.put("/mainView.do", new MainViewController());
+
     }
 
     public Controller getController(String path) {

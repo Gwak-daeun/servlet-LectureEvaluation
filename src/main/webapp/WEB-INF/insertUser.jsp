@@ -14,27 +14,25 @@
 
 </head>
 <body>
-<%
-    String userID = null;
-    if (session.getAttribute("userID") != null) {
-        userID = (String) session.getAttribute("userID");
-    }
-    if (userID != null) {
-        session.setAttribute("userID", userID);
-        PrintWriter script = response.getWriter();
-        script.println("<script>");
-        script.println("alert('로그인한 상태 입니다.');");
-        script.println("location.href = 'index.jsp';");
-        script.println("</script>");
-        script.close();
-        return;
-    }
-%>
-
-<%@ include file="components/lecutureNavigation.jsp" %>
-
+<%--<%--%>
+<%--    String userID = null;--%>
+<%--    if (session.getAttribute("userID") != null) {--%>
+<%--        userID = (String) session.getAttribute("userID");--%>
+<%--    }--%>
+<%--    if (userID != null) {--%>
+<%--        session.setAttribute("userID", userID);--%>
+<%--        PrintWriter script = response.getWriter();--%>
+<%--        script.println("<script>");--%>
+<%--        script.println("alert('로그인한 상태 입니다.');");--%>
+<%--        script.println("location.href = 'index.jsp';");--%>
+<%--        script.println("</script>");--%>
+<%--        script.close();--%>
+<%--        return;--%>
+<%--    }--%>
+<%--%>--%>
+<%@ include file="./components/lecutureNavigation.jsp" %>
 <section class="container mt-3" style="max-width: 560px;">
-    <form method="post" action="login.do">
+    <form method="post" action="insertUser.do">
         <div class="form-group">
             <label>아이디</label>
             <input type="text" name="userID" class="form-control">
@@ -43,7 +41,11 @@
             <label>비밀번호</label>
             <input type="password" name="userPassword" class="form-control">
         </div>
-        <button type="submit" class="btn btn-primary">로그인</button>
+        <div class="form-group">
+            <label>이메일</label>
+            <input type="email" name="userEmail" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">회원가입</button>
     </form>
 </section>
 

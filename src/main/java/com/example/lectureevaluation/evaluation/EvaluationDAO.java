@@ -2,6 +2,8 @@ package com.example.lectureevaluation.evaluation;
 
 import com.example.lectureevaluation.util.DatabaseUtil;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,9 +35,11 @@ public class EvaluationDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }  finally {
-            try {if (conn != null) {conn.close();}} catch (Exception e){e.printStackTrace();}
-            try {if (pstmt != null) {pstmt.close();}} catch (Exception e){e.printStackTrace();}
-            try {if (rs != null) {rs.close();}} catch (Exception e){e.printStackTrace();}
+            try {
+                if (conn != null) {conn.close();}
+                if (pstmt != null) {pstmt.close();}
+                if (rs != null) {rs.close();}
+            } catch (Exception e){e.printStackTrace();}
 
         }
         return -1; //데이터베이스 오류
@@ -89,9 +93,11 @@ public class EvaluationDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }  finally {
-            try {if (conn != null) {conn.close();}} catch (Exception e){e.printStackTrace();}
-            try {if (pstmt != null) {pstmt.close();}} catch (Exception e){e.printStackTrace();}
-            try {if (rs != null) {rs.close();}} catch (Exception e){e.printStackTrace();}
+            try {
+                if (conn != null) {conn.close();}
+                if (pstmt != null) {pstmt.close();}
+                if (rs != null) {rs.close();}
+            } catch (Exception e){e.printStackTrace();}
 
         }
         return evaluationList;
@@ -110,9 +116,11 @@ public class EvaluationDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }  finally {
-            try {if (conn != null) {conn.close();}} catch (Exception e){e.printStackTrace();}
-            try {if (pstmt != null) {pstmt.close();}} catch (Exception e){e.printStackTrace();}
-            try {if (rs != null) {rs.close();}} catch (Exception e){e.printStackTrace();}
+            try {
+                if (conn != null) {conn.close();}
+                if (pstmt != null) {pstmt.close();}
+                if (rs != null) {rs.close();}
+            } catch (Exception e){e.printStackTrace();}
 
         }
         return -1; //데이터베이스 오류
@@ -131,9 +139,11 @@ public class EvaluationDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }  finally {
-            try {if (conn != null) {conn.close();}} catch (Exception e){e.printStackTrace();}
-            try {if (pstmt != null) {pstmt.close();}} catch (Exception e){e.printStackTrace();}
-            try {if (rs != null) {rs.close();}} catch (Exception e){e.printStackTrace();}
+            try {
+                if (conn != null) {conn.close();}
+                if (pstmt != null) {pstmt.close();}
+                if (rs != null) {rs.close();}
+            } catch (Exception e){e.printStackTrace();}
 
         }
         return -1; //데이터베이스 오류
@@ -155,9 +165,11 @@ public class EvaluationDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }  finally {
-            try {if (conn != null) {conn.close();}} catch (Exception e){e.printStackTrace();}
-            try {if (pstmt != null) {pstmt.close();}} catch (Exception e){e.printStackTrace();}
-            try {if (rs != null) {rs.close();}} catch (Exception e){e.printStackTrace();}
+            try {
+                if (conn != null) {conn.close();}
+                if (pstmt != null) {pstmt.close();}
+                if (rs != null) {rs.close();}
+            } catch (Exception e){e.printStackTrace();}
 
         }
         return null; //데이터베이스 오류
@@ -178,6 +190,12 @@ public class EvaluationDAO {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null) {conn.close();}
+                if (pstmt != null) {pstmt.close();}
+                if (rs != null) {rs.close();}
+            } catch (Exception e){e.printStackTrace();}
         }
         return -1;
     }

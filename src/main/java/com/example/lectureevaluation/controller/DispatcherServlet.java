@@ -16,7 +16,7 @@ public class DispatcherServlet extends HttpServlet {
     public void init() throws ServletException {
         handlerMapping = new HandlerMapping();
         viewResolver = new ViewResolver();
-        viewResolver.setPrefix("./");
+        viewResolver.setPrefix("./WEB-INF/");
         viewResolver.setSuffix(".jsp");
     }
 

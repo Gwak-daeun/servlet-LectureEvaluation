@@ -58,4 +58,6 @@ public class EmailCheckController implements Controller {
             return null;
         }
     }
+
+
 }
