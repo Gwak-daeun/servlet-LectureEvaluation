@@ -6,7 +6,7 @@
 </head>
 <body>
 <%
-  response.sendRedirect("/login.do");
+  response.sendRedirect("/loginView.do");
 %>
 </body>
 </html>

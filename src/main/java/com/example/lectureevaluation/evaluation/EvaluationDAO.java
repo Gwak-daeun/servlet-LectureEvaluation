@@ -18,18 +18,18 @@ public class EvaluationDAO {
         try {
             conn = DatabaseUtil.getConnection();
             pstmt = conn.prepareStatement(SQL);
-            pstmt.setString(1, evaluationDTO.getUserID().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-            pstmt.setString(2, evaluationDTO.getLectureName().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-            pstmt.setString(3, evaluationDTO.getProfessorName().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+            pstmt.setString(1, evaluationDTO.getUserID());
+            pstmt.setString(2, evaluationDTO.getLectureName());
+            pstmt.setString(3, evaluationDTO.getProfessorName());
             pstmt.setInt(4, evaluationDTO.getLectureYear());
-            pstmt.setString(5, evaluationDTO.getSemesterDivide().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-            pstmt.setString(6, evaluationDTO.getLectureDivide().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-            pstmt.setString(7, evaluationDTO.getEvaluationTitle().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-            pstmt.setString(8, evaluationDTO.getEvaluationContent().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-            pstmt.setString(9, evaluationDTO.getTotalScore().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-            pstmt.setString(10, evaluationDTO.getCreditScore().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-            pstmt.setString(11, evaluationDTO.getComfortableScore().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-            pstmt.setString(12, evaluationDTO.getLectureScore().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+            pstmt.setString(5, evaluationDTO.getSemesterDivide());
+            pstmt.setString(6, evaluationDTO.getLectureDivide());
+            pstmt.setString(7, evaluationDTO.getEvaluationTitle());
+            pstmt.setString(8, evaluationDTO.getEvaluationContent());
+            pstmt.setString(9, evaluationDTO.getTotalScore());
+            pstmt.setString(10, evaluationDTO.getCreditScore());
+            pstmt.setString(11, evaluationDTO.getComfortableScore());
+            pstmt.setString(12, evaluationDTO.getLectureScore());
             return pstmt.executeUpdate(); // 성공했다면 1 반환
 
         } catch (Exception e) {
@@ -175,19 +175,28 @@ public class EvaluationDAO {
         return null; //데이터베이스 오류
     }
 
-    public int selectCount() {
-        String SQL = "select count(*) from evaluation";
+    public int edit(
+            int evaluationID, String lectureName, String professorName, int lectureYear,
+            String semesterDivide, String lectureDivide, String evaluationTitle, String evaluationContent
+    ) {
+        String SQL = "update evaluation set lectureName = ?, professorName = ?, lectureYear = ?, semesterDivide = ?, lectureDivide = ?, evaluationTitle = ?, evaluationContent = ? where evaluationID = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-
         try {
+
             conn = DatabaseUtil.getConnection();
             pstmt = conn.prepareStatement(SQL);
-            rs = pstmt.executeQuery();
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
+            pstmt.setString(1, lectureName);
+            pstmt.setString(2, professorName);
+            pstmt.setInt(3, lectureYear);
+            pstmt.setString(4, semesterDivide);
+            pstmt.setString(5, lectureDivide);
+            pstmt.setString(6, evaluationTitle);
+            pstmt.setString(7, evaluationContent);
+            pstmt.setInt(8, evaluationID);
+           return pstmt.executeUpdate();
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

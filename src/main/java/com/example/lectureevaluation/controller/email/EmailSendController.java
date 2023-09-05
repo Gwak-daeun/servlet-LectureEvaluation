@@ -18,7 +18,7 @@ import java.util.Properties;
 public class EmailSendController implements Controller {
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html; charset=UTF-8");
+
         UserDAO userDAO = new UserDAO();
         HttpSession session = request.getSession();
         String userID = null;
@@ -29,7 +29,7 @@ public class EmailSendController implements Controller {
             PrintWriter script = response.getWriter();
             script.println("<script>");
             script.println("alert('로그인을 해주세요.');");
-            script.println("location.href = 'userLogin.jsp'");
+            script.println("location.href = 'loginView.do'");
             script.println("</script>");
             script.close();
             return null;
@@ -40,7 +40,7 @@ public class EmailSendController implements Controller {
             PrintWriter script = response.getWriter();
             script.println("<script>");
             script.println("alert('이미 인증된 회원입니다.');");
-            script.println("location.href = 'index.jsp'");
+            script.println("location.href = 'mainView.do'");
             script.println("</script>");
             script.close();
             return null;
@@ -85,6 +85,6 @@ public class EmailSendController implements Controller {
             script.close();
             return null;
         }
-        return null;
+        return "emailSendConfirm";
     }
 }

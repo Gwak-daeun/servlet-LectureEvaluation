@@ -16,11 +16,16 @@ public class CheckAlreadyLoginFilter extends HttpFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession();
+
         if (session.getAttribute("userID") != null) {
-            res.sendRedirect("/mainView.do");
+            PrintWriter script = response.getWriter();
+            script.println("<script>");
+            script.println("alert('이미 로그인 하셨어요.');");
+            script.println("location.href='mainView.do'");
+            script.println("</script>");
+            script.close();
         } else {
             chain.doFilter(request, response);
-
         }
     }
 }

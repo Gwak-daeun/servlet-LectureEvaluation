@@ -1,5 +1,3 @@
-<%@ page import="java.io.PrintWriter" %>
-<%@ page import="com.example.lectureevaluation.user.UserDAO" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -14,22 +12,7 @@
 
 </head>
 <body>
-<%--<%--%>
-<%--    String userID = null;--%>
-<%--    if (session.getAttribute("userID") != null) {--%>
-<%--        userID = (String) session.getAttribute("userID");--%>
-<%--    }--%>
-<%--    if (userID != null) {--%>
-<%--        session.setAttribute("userID", userID);--%>
-<%--        PrintWriter script = response.getWriter();--%>
-<%--        script.println("<script>");--%>
-<%--        script.println("alert('로그인한 상태 입니다.');");--%>
-<%--        script.println("location.href = 'index.jsp';");--%>
-<%--        script.println("</script>");--%>
-<%--        script.close();--%>
-<%--        return;--%>
-<%--    }--%>
-<%--%>--%>
+
 <%@ include file="./components/lecutureNavigation.jsp" %>
 <section class="container mt-3" style="max-width: 560px;">
     <form method="post" action="insertUser.do">
@@ -52,8 +35,6 @@
 
 
 
-<footer class="bg-dark mt-4 p-5 text-center" style="color: #ffffff;">
-    Copyright &copy; 곽다은
-</footer>
+<%@ include file="./components/footer.jsp" %>
 </body>
 </html>

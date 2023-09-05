@@ -18,7 +18,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <c:if test="${userID == null}" >
-                        <li><a class="dropdown-item" href="login.do">로그인</a></li>
+                        <li><a class="dropdown-item" href="loginView.do">로그인</a></li>
                         <li> <a class="dropdown-item" href="insertUserView.do">회원가입</a></li>
                         </c:if>
 

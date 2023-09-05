@@ -14,8 +14,6 @@ public class UserLoginController implements Controller {
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html; charset=UTF-8");
         String userID = null;
         String userPassword = null;
         HttpSession session = request.getSession();
@@ -27,17 +25,17 @@ public class UserLoginController implements Controller {
             userPassword = request.getParameter("userPassword");
         }
 
-        System.out.println(userID);
-        System.out.println("login session check : " + session.getAttribute("userID"));
+        System.out.println(userID.length());
+        System.out.println("loginController session check : " + session.getAttribute("userID"));
 
-        if (userID == null || userPassword == null) {
-            request.getRequestDispatcher("loginView.do").forward(request, response);
-//            PrintWriter script = response.getWriter();
-//            script.println("<script>");
-//            script.println("alert('입력이 안 된 부분이 있어요.');");
-//            script.println("history.back();");
-//            script.println("</script>");
-//            script.close();
+        if (userID.length() == 0 || userPassword.length() == 0) {
+//            request.getRequestDispatcher("loginView.do").forward(request, response);
+            PrintWriter script = response.getWriter();
+            script.println("<script>");
+            script.println("alert('입력이 안 된 부분이 있어요.');");
+            script.println("history.back();");
+            script.println("</script>");
+            script.close();
             return null;
         }
         UserDAO userDAO = new UserDAO();
@@ -45,6 +43,16 @@ public class UserLoginController implements Controller {
         if (result == 1) {
             session.setAttribute("userID", userID);
 
+          boolean emailChecked = userDAO.getUserEmailChecked(userID);
+
+            if (!emailChecked) {
+                PrintWriter script = response.getWriter();
+                script.println("<script>");
+                script.println("alert('이메일 인증을 하지 않았어요.');");
+                script.println("location.href = 'emailSendReconfirmView.do'");
+                script.println("</script>");
+                script.close();
+            }
             PrintWriter script = response.getWriter();
             script.println("<script>");
             script.println("location.href = 'mainView.do'");
@@ -82,6 +90,6 @@ public class UserLoginController implements Controller {
             return null;
         }
 
-        return "main";
+        return "mainView.do";
     }
 }

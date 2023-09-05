@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 public class EmailCheckController implements Controller {
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        request.setCharacterEncoding("UTF-8");
+
         String code = null;
         if (request.getParameter("code") != null) {
             code = request.getParameter("code");
@@ -30,7 +30,7 @@ public class EmailCheckController implements Controller {
             PrintWriter script = response.getWriter();
             script.println("<script>");
             script.println("alert('로그인을 해주세요.');");
-            script.println("location.href = 'userLogin.jsp';");
+            script.println("location.href = 'loginView.do';");
             script.println("</script>");
             script.close();
             return null;
@@ -44,7 +44,7 @@ public class EmailCheckController implements Controller {
             PrintWriter script = response.getWriter();
             script.println("<script>");
             script.println("alert('인증에 성공했습니다.');");
-            script.println("location.href = 'index.jsp';");
+            script.println("location.href = 'mainView.do';");
             script.println("</script>");
             script.close();
             return null;
@@ -52,7 +52,7 @@ public class EmailCheckController implements Controller {
             PrintWriter script = response.getWriter();
             script.println("<script>");
             script.println("alert('유효하지 않은 코드 입니다.');");
-            script.println("location.href = 'index.jsp';");
+            script.println("location.href = 'mainView.do';");
             script.println("</script>");
             script.close();
             return null;

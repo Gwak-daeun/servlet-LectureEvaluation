@@ -18,7 +18,6 @@ public class ReportController implements Controller {
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        response.setContentType("text/html; charset=UTF-8");
         String userID = null;
         HttpSession session = request.getSession();
 
@@ -35,7 +34,6 @@ public class ReportController implements Controller {
             return null;
         }
 
-        request.setCharacterEncoding("UTF-8");
         String reportTitle = null;
         String reportContent = null;
         if (request.getParameter("reportTitle") != null) {

@@ -14,8 +14,6 @@ public class LikeController implements Controller {
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        response.setContentType("text/html; charset=UTF-8");
-
         getClientIP(request);
 
         String userID = null;
@@ -29,13 +27,12 @@ public class LikeController implements Controller {
             PrintWriter script = response.getWriter();
             script.println("<script>");
             script.println("alert('로그인을 해주세요.');");
-            script.println("location.href = 'userLogin.jsp'");
+            script.println("location.href = 'loginView.do'");
             script.println("</script>");
             script.close();
             return null;
         }
 
-        request.setCharacterEncoding("UTF-8");
         String evaluationID = null;
         if (request.getParameter("evaluationID") != null) {
             evaluationID = request.getParameter("evaluationID");
@@ -50,7 +47,7 @@ public class LikeController implements Controller {
                 PrintWriter script = response.getWriter();
                 script.println("<script>");
                 script.println("alert('추천 완료!');");
-                script.println("location.href = 'index.jsp';");
+                script.println("location.href = 'mainView.do';");
                 script.println("</script>");
                 script.close();
                 return null;

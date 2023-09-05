@@ -12,7 +12,6 @@ import java.io.PrintWriter;
 public class EvaluationDeleteController implements Controller {
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html; charset=UTF-8");
         HttpSession session = request.getSession();
         String userID = null;
         if (session.getAttribute("userID") != null) {
@@ -22,7 +21,7 @@ public class EvaluationDeleteController implements Controller {
             PrintWriter script = response.getWriter();
             script.println("<script>");
             script.println("alert('로그인을 해주세요.');");
-            script.println("location.href = 'userLogin.jsp'");
+            script.println("location.href = 'loginView.do'");
             script.println("</script>");
             script.close();
 
@@ -39,7 +38,7 @@ public class EvaluationDeleteController implements Controller {
             PrintWriter script = response.getWriter();
             script.println("<script>");
             script.println("alert('삭제 완료!');");
-            script.println("location.href = 'index.jsp';");
+            script.println("location.href = 'loginView.do';");
             script.println("</script>");
             script.close();
             System.out.println("delete result : " + result);

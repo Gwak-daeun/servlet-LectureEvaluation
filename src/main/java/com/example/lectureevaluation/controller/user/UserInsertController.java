@@ -15,8 +15,6 @@ public class UserInsertController implements Controller {
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         System.out.println("회원가입 처리 시작");
 
-        response.setContentType("text/html; charset=UTF-8");
-
         String userID = null;
         if (request.getAttribute("userID") != null) {
             userID = (String) request.getAttribute("userID");
@@ -26,7 +24,7 @@ public class UserInsertController implements Controller {
             PrintWriter script = response.getWriter();
             script.println("<script>");
             script.println("alert('로그인한 상태 입니다.');");
-            script.println("location.href = 'index.jsp';");
+            script.println("location.href = 'mainView.do';");
             script.println("</script>");
             script.flush();
             script.close();
@@ -67,7 +65,7 @@ public class UserInsertController implements Controller {
             request.setAttribute("userID", userID);
             PrintWriter script = response.getWriter();
             script.println("<script>");
-            script.println("location.href = 'emailSend.do'");
+            script.println("location.href = 'emailSendConfirmView.do'");
             script.println("</script>");
             script.flush();
             script.close();

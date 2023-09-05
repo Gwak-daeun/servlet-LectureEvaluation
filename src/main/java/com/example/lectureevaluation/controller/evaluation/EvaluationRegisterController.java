@@ -14,8 +14,7 @@ public class EvaluationRegisterController implements Controller {
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html; charset=UTF-8");
+
         String userID = null;
 
         HttpSession session = request.getSession();
@@ -28,7 +27,7 @@ public class EvaluationRegisterController implements Controller {
             PrintWriter script = response.getWriter();
             script.println("<script>");
             script.println("alert('로그인을 해주세요.');");
-            script.println("location.href = 'userLogin.jsp';");
+            script.println("location.href = 'loginView.do';");
             script.println("</script>");
             script.close();
         }
@@ -58,7 +57,6 @@ public class EvaluationRegisterController implements Controller {
                 System.out.println("강의 연도 데이터 오류");
                 e.printStackTrace();
             }
-
         }
         if (request.getParameter("semesterDivide") != null) {
             semesterDivide = request.getParameter("semesterDivide");
@@ -72,9 +70,8 @@ public class EvaluationRegisterController implements Controller {
         if (request.getParameter("evaluationContent") != null) {
             evaluationContent = request.getParameter("evaluationContent");
         }
-        if (request.getParameter("totalScore") != null) {
-            totalScore = request.getParameter("totalScore");
-        }
+
+
         if (request.getParameter("creditScore") != null) {
             creditScore = request.getParameter("creditScore");
         }
@@ -84,6 +81,10 @@ public class EvaluationRegisterController implements Controller {
         if (request.getParameter("lectureScore") != null) {
             lectureScore = request.getParameter("lectureScore");
         }
+
+       int scoreSum = calculateScore(creditScore, comfortableScore, lectureScore);
+
+      totalScore = choiceTotalScore(scoreSum);
 
         if (lectureName == null || professorName == null || lectureYear == 0 || semesterDivide == null ||
                 lectureDivide == null || evaluationTitle == null || evaluationContent == null ||
@@ -116,13 +117,45 @@ public class EvaluationRegisterController implements Controller {
             session.setAttribute("userID", userID);
             PrintWriter script = response.getWriter();
             script.println("<script>");
-            script.println("location.href = 'index.jsp'");
+            script.println("location.href = 'mainView.do'");
             script.println("</script>");
             script.close();
             return null;
         } else {
-            return "index";
+            return "mainView.do";
+        }
+    }
+
+    public int calculateScore(String creditScore, String comfortableScore, String lectureScore) {
+
+       int result = Math.round((Integer.parseInt(creditScore)  + Integer.parseInt(comfortableScore) + Integer.parseInt(lectureScore)) / 3);
+
+       return result;
+    }
+
+    public String choiceTotalScore(int scoreSum) {
+        String totalScore;
+        switch (scoreSum) {
+            case 1:
+                totalScore = "F";
+                break;
+            case 2:
+                totalScore = "D";
+                break;
+            case 3:
+                totalScore = "C";
+                break;
+            case 4:
+                totalScore = "B";
+                break;
+            case 5:
+                totalScore = "A";
+                break;
+            default:
+                totalScore = "";
+                break;
         }
 
+        return totalScore;
     }
 }

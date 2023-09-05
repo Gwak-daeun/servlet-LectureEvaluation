@@ -1,11 +1,10 @@
 package com.example.lectureevaluation.controller;
 
 import com.example.lectureevaluation.controller.email.EmailCheckController;
+import com.example.lectureevaluation.controller.email.EmailSendConfirmViewController;
+import com.example.lectureevaluation.controller.email.EmailSendReconfirmViewController;
 import com.example.lectureevaluation.controller.email.EmailSendController;
-import com.example.lectureevaluation.controller.evaluation.EvaluationDeleteController;
-import com.example.lectureevaluation.controller.evaluation.EvaluationListController;
-import com.example.lectureevaluation.controller.evaluation.EvaluationRegisterController;
-import com.example.lectureevaluation.controller.evaluation.MainViewController;
+import com.example.lectureevaluation.controller.evaluation.*;
 import com.example.lectureevaluation.controller.like.LikeController;
 import com.example.lectureevaluation.controller.report.ReportController;
 import com.example.lectureevaluation.controller.user.*;
@@ -33,6 +32,9 @@ public class HandlerMapping {
         mappings.put("/emailCheck.do", new EmailCheckController());
         mappings.put("/searchList.do", new EvaluationListController());
         mappings.put("/mainView.do", new MainViewController());
+        mappings.put("/emailSendReconfirmView.do", new EmailSendReconfirmViewController());
+        mappings.put("/emailSendConfirmView.do", new EmailSendConfirmViewController());
+        mappings.put("/evaluationEdit.do", new EvaluationEditController());
 
     }
 

@@ -20,11 +20,10 @@ public class CheckLoginFilter extends HttpFilter implements Filter {
 
         System.out.println("check Session : " + session.getAttribute("userID"));
         if (session.getAttribute("userID") == null) {
-            res.sendRedirect("/userLogin.jsp");
-            chain.doFilter(request, response);
             PrintWriter script = response.getWriter();
             script.println("<script>");
             script.println("alert('로그인을 해주세요.');");
+            script.println("location.href='loginView.do'");
             script.println("</script>");
             script.close();
 

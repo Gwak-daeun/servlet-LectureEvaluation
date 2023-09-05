@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class EvaluationListController implements Controller {
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
+
         System.out.println("start search");
         String lectureDivide = request.getParameter("lectureDivide");
         String searchType = request.getParameter("searchType");
