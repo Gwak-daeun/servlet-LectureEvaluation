@@ -14,6 +14,8 @@
 </head>
 <body>
 
+<%  %>
+
 <%--헤더 네비게이션--%>
 <%@ include file="./components/lecutureNavigation.jsp" %>
 
@@ -42,6 +44,7 @@
                         ${evaluation.evaluationTitle}&nbsp;<small>${evaluation.lectureYear}년 ${evaluation.semesterDivide}</small>
                 </h5>
                 <p class="card-text">${evaluation.evaluationContent}</p>
+
                 <div class="row">
                     <div class="col-9 text-left">
                         성적<span style="color: red;">${evaluation.creditScore}</span>
@@ -116,6 +119,7 @@
                                 <label>내용</label>
                                 <textarea name="evaluationContent" class="form-control" maxlength="2048" style="height: 180px;">${evaluation.evaluationContent}</textarea>
                             </div>
+                            <img class="rounded mx-auto d-block" src="http://localhost:8080/images/${evaluation.image}" style="width: 50px">
                             <div class="row">
                                 <div class="form-group col-sm-3">
                                     <label>종합</label>

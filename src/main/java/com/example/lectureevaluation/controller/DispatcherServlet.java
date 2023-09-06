@@ -31,8 +31,6 @@ public class DispatcherServlet extends HttpServlet {
         //3. 검색된 Controller를 실행한다.
         String viewName = ctrl.handleRequest(request, response);
 
-        System.out.println("viewName??? : " + viewName);
-
         //4. ViewResolver를 통해 viewName에 해당하는 경로를 완성한다.
         String view = null;
         if (!viewName.contains(".do")) {
@@ -44,8 +42,6 @@ public class DispatcherServlet extends HttpServlet {
         } else {
             view = viewName;
         }
-
-        System.out.println("view???? : " + view);
 
         //5. 검색된 화면으로 포워딩한다.
         RequestDispatcher dispatcher = request.getRequestDispatcher(view);

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class EvaluationDAO {
     public int write(EvaluationDTO evaluationDTO) {
-        String SQL = "INSERT INTO EVALUATION VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
+        String SQL = "INSERT INTO EVALUATION VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -26,10 +26,11 @@ public class EvaluationDAO {
             pstmt.setString(6, evaluationDTO.getLectureDivide());
             pstmt.setString(7, evaluationDTO.getEvaluationTitle());
             pstmt.setString(8, evaluationDTO.getEvaluationContent());
-            pstmt.setString(9, evaluationDTO.getTotalScore());
-            pstmt.setString(10, evaluationDTO.getCreditScore());
-            pstmt.setString(11, evaluationDTO.getComfortableScore());
-            pstmt.setString(12, evaluationDTO.getLectureScore());
+            pstmt.setString(9, evaluationDTO.getImage());
+            pstmt.setString(10, evaluationDTO.getTotalScore());
+            pstmt.setString(11, evaluationDTO.getCreditScore());
+            pstmt.setString(12, evaluationDTO.getComfortableScore());
+            pstmt.setString(13, evaluationDTO.getLectureScore());
             return pstmt.executeUpdate(); // 성공했다면 1 반환
 
         } catch (Exception e) {
@@ -81,11 +82,12 @@ public class EvaluationDAO {
                         rs.getString(7),
                         rs.getString(8),
                         rs.getString(9),
-                        rs.getString(10),
+                        rs.getString(10), // image
                         rs.getString(11),
                         rs.getString(12),
                         rs.getString(13),
-                        rs.getInt(14)
+                        rs.getString(14),
+                        rs.getInt(15)
                 );
                 evaluationList.add(evaluation);
             }

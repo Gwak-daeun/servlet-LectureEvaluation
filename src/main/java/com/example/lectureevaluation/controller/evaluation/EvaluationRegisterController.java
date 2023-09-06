@@ -4,16 +4,25 @@ import com.example.lectureevaluation.controller.Controller;
 import com.example.lectureevaluation.evaluation.EvaluationDAO;
 import com.example.lectureevaluation.evaluation.EvaluationDTO;
 
+import javax.servlet.ServletException;
+
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.UUID;
 
+
+@MultipartConfig(
+        maxFileSize = 1024 * 1024 * 5,
+        maxRequestSize = 1024 * 1024 * 50
+)
 public class EvaluationRegisterController implements Controller {
     @Override
-    public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+    public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String userID = null;
 
@@ -43,6 +52,33 @@ public class EvaluationRegisterController implements Controller {
         String creditScore = null;
         String comfortableScore = null;
         String lectureScore = null;
+        String image = null;
+
+        Part part = request.getPart("image");
+
+        String fileName = getFilename(part);
+
+        String[] fileNameWithExtension = fileName.split("\\.");
+
+        System.out.println("fileName : " + fileName);
+
+        System.out.println("fileNameWithExtension : " + fileNameWithExtension[0]);
+
+        String realFileName = fileNameWithExtension[0];
+
+
+        String identifier = UUID.randomUUID().toString();
+
+        image = realFileName + identifier + "." + fileNameWithExtension[1];
+
+        if (!fileName.isEmpty()) {
+            part.write("C:\\Users\\user\\Desktop\\LectureEvaluation\\src\\main\\webapp\\images\\" + image);
+        }
+
+
+//        if (!fileName.isEmpty()) {
+//            part.write("C:\\Users\\user\\Desktop\\jspImages\\" + image);
+//        }
 
         if (request.getParameter("lectureName") != null) {
             lectureName = request.getParameter("lectureName");
@@ -102,7 +138,7 @@ public class EvaluationRegisterController implements Controller {
         EvaluationDAO evaluationDAO = new EvaluationDAO();
         int result = evaluationDAO.write(new EvaluationDTO(0, userID, lectureName, professorName,
                 lectureYear, semesterDivide, lectureDivide,
-                evaluationTitle, evaluationContent, totalScore,
+                evaluationTitle, evaluationContent, image, totalScore,
                 creditScore, comfortableScore, lectureScore, 0
         ));
         if (result == -1) {
@@ -126,14 +162,14 @@ public class EvaluationRegisterController implements Controller {
         }
     }
 
-    public int calculateScore(String creditScore, String comfortableScore, String lectureScore) {
+    private int calculateScore(String creditScore, String comfortableScore, String lectureScore) {
 
        int result = Math.round((Integer.parseInt(creditScore)  + Integer.parseInt(comfortableScore) + Integer.parseInt(lectureScore)) / 3);
 
        return result;
     }
 
-    public String choiceTotalScore(int scoreSum) {
+    private String choiceTotalScore(int scoreSum) {
         String totalScore;
         switch (scoreSum) {
             case 1:
@@ -158,4 +194,17 @@ public class EvaluationRegisterController implements Controller {
 
         return totalScore;
     }
+
+    private String getFilename(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] split = contentDisp.split(";");
+        for (int i = 0; i < split.length; i++) {
+            String temp = split[i];
+            if (temp.trim().startsWith("filename")) {
+                return temp.substring(temp.indexOf("=") + 2, temp.length() - 1);
+            }
+        }
+        return "";
+    }
+
 }

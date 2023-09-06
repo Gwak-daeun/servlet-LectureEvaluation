@@ -8,7 +8,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="evaluationRegister.do" method="post">
+                <form action="evaluationRegister.do" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="form-group col-sm-6">
                             <label>강의명</label>
@@ -63,6 +63,10 @@
                     <div class="form-group">
                         <label>내용</label>
                         <textarea name="evaluationContent" class="form-control" maxlength="2048" style="height: 180px;"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>이미지</label>
+                        <input type="file" name="image">
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-3">

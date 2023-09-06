@@ -17,6 +17,7 @@ public class EvaluationDTO {
     String lectureDivide;
     String evaluationTitle;
     String evaluationContent;
+    String image;
     String totalScore;
     String creditScore;
     String comfortableScore;

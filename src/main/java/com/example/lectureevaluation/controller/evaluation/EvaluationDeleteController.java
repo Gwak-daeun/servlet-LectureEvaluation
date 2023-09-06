@@ -38,7 +38,7 @@ public class EvaluationDeleteController implements Controller {
             PrintWriter script = response.getWriter();
             script.println("<script>");
             script.println("alert('삭제 완료!');");
-            script.println("location.href = 'loginView.do';");
+            script.println("location.href = 'mainView.do';");
             script.println("</script>");
             script.close();
             System.out.println("delete result : " + result);
